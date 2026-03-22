@@ -81,9 +81,9 @@ export default function DocumentsPage() {
   };
 
   return (
-    <div style={{ padding: 40, maxWidth: 1000, width: "100%" }}>
+    <div className="dashboard-container">
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 32 }}>
+      <div className="page-header">
         <div>
           <h1 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 6 }}>
             Documents
@@ -127,7 +127,7 @@ export default function DocumentsPage() {
       )}
 
       {/* Supported formats */}
-      <div style={{ display: "flex", gap: 8, marginBottom: 24, alignItems: "center" }}>
+      <div style={{ display: "flex", gap: 8, marginBottom: 24, alignItems: "center", flexWrap: "wrap" }}>
         <span style={{ color: "var(--text-3)", fontSize: 12 }}>Supported:</span>
         <FileTag type="pdf" />
         <FileTag type="txt" />
@@ -135,7 +135,7 @@ export default function DocumentsPage() {
       </div>
 
       {/* Table */}
-      <div className="card" style={{ padding: 0, overflow: "hidden" }}>
+      <div className="card table-responsive" style={{ padding: 0 }}>
         {loading ? (
           <div style={{ padding: 40, textAlign: "center", color: "var(--text-3)" }}>
             <span className="spinner" />

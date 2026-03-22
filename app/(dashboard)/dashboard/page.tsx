@@ -22,7 +22,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div style={{ padding: 40, maxWidth: 900 }}>
+    <div className="dashboard-container">
       <div style={{ marginBottom: 40 }}>
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 800, letterSpacing: "-0.02em", marginBottom: 8 }}>
           Overview
@@ -30,7 +30,7 @@ export default async function DashboardPage() {
         <p style={{ color: "var(--text-2)" }}>Your knowledge base at a glance.</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 40 }}>
+      <div className="stats-grid">
         {stats.map((stat) => (
           <div key={stat.label} className="card animate-fade-up" style={{ padding: 24 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>

@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 const NAV = [
   { href: "/dashboard", label: "Overview", icon: "◈" },
@@ -13,6 +14,7 @@ export default function DashboardNav({ userEmail }: { userEmail: string }) {
   const pathname = usePathname();
   const router = useRouter();
   const { signOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -21,18 +23,9 @@ export default function DashboardNav({ userEmail }: { userEmail: string }) {
   };
 
   return (
-    <nav style={{
-      width: 220,
-      minHeight: "100vh",
-      background: "var(--bg-2)",
-      borderRight: "1px solid var(--border)",
-      display: "flex",
-      flexDirection: "column",
-      padding: "24px 0",
-      flexShrink: 0,
-    }}>
-      {/* Logo */}
-      <div style={{ padding: "0 20px 28px", borderBottom: "1px solid var(--border)" }}>
+    <nav className="sidebar-nav">
+      {/* Logo and Mobile Toggle */}
+      <div className="sidebar-header">
         <div style={{
           fontFamily: "var(--font-display)",
           fontSize: 20,
@@ -41,10 +34,19 @@ export default function DashboardNav({ userEmail }: { userEmail: string }) {
         }}>
           the<span style={{ color: "var(--accent)" }}>den</span>kb
         </div>
+        <button 
+          className="mobile-toggle"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? "✕" : "☰"}
+        </button>
       </div>
 
-      {/* Nav links */}
-      <div style={{ flex: 1, padding: "20px 12px", display: "flex", flexDirection: "column", gap: 2 }}>
+      {/* Nav Content (collapsible on mobile) */}
+      <div className={`sidebar-content ${isOpen ? 'open' : 'closed'}`}>
+        {/* Nav links */}
+        <div style={{ flex: 1, padding: "20px 12px", display: "flex", flexDirection: "column", gap: 2 }}>
         {NAV.map((item) => {
           const active = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
           return (
@@ -71,21 +73,22 @@ export default function DashboardNav({ userEmail }: { userEmail: string }) {
         })}
       </div>
 
-      {/* User */}
-      <div style={{ padding: "20px 12px 0", borderTop: "1px solid var(--border)" }}>
-        <div style={{ padding: "8px 12px", marginBottom: 4 }}>
-          <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 2, letterSpacing: "0.05em", textTransform: "uppercase" }}>Signed in as</div>
-          <div style={{ fontSize: 12, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-            {userEmail}
+        {/* User */}
+        <div style={{ padding: "20px 12px 20px", borderTop: "1px solid var(--border)" }}>
+          <div style={{ padding: "8px 12px", marginBottom: 4 }}>
+            <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 2, letterSpacing: "0.05em", textTransform: "uppercase" }}>Signed in as</div>
+            <div style={{ fontSize: 12, color: "var(--text-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {userEmail}
+            </div>
           </div>
+          <button
+            onClick={handleSignOut}
+            className="btn btn-ghost"
+            style={{ width: "100%", justifyContent: "center", fontSize: 12 }}
+          >
+            Sign out
+          </button>
         </div>
-        <button
-          onClick={handleSignOut}
-          className="btn btn-ghost"
-          style={{ width: "100%", justifyContent: "center", fontSize: 12 }}
-        >
-          Sign out
-        </button>
       </div>
     </nav>
   );

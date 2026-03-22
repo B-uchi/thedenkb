@@ -141,3 +141,127 @@ input, textarea {
   animation: spin 0.7s linear infinite;
   display: inline-block;
 }
+
+/* Responsive Layout */
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  flex-direction: column;
+}
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .layout-wrapper {
+    flex-direction: row;
+  }
+}
+
+.sidebar-nav {
+  width: 100%;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 50;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-content.closed {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar-nav {
+    width: 220px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+  }
+  .sidebar-header {
+    padding: 24px 20px 28px;
+  }
+  .sidebar-content.closed {
+    display: flex; /* Always visible on desktop */
+  }
+  .sidebar-content {
+    flex: 1;
+  }
+}
+
+.mobile-toggle {
+  display: flex;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+@media (min-width: 768px) {
+  .mobile-toggle {
+    display: none;
+  }
+}
+
+.dashboard-container {
+  padding: 24px;
+  max-width: 100%;
+  overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .dashboard-container {
+    padding: 40px;
+    max-width: 900px;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+@media (min-width: 768px) {
+  .page-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
