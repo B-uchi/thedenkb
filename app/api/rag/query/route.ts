@@ -73,7 +73,7 @@ async function saveMessages(
 async function retrieveContext(
   admin: typeof supabaseAdmin,
   queryEmbedding: number[],
-  matchThreshold = 0.65,
+  matchThreshold = 0.3,
   matchCount = 5
 ): Promise<{ content: string; source: string; title: string }[]> {
   const { data, error } = await admin.rpc("match_chunks", {

@@ -1,17 +1,16 @@
-import { createClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
 
-  const { count: docCount } = await supabase
+  const { count: docCount } = await supabaseAdmin
     .from("kb_documents")
     .select("*", { count: "exact", head: true });
 
-  const { count: chunkCount } = await supabase
+  const { count: chunkCount } = await supabaseAdmin
     .from("kb_chunks")
     .select("*", { count: "exact", head: true });
 
-  const { count: sessionCount } = await supabase
+  const { count: sessionCount } = await supabaseAdmin
     .from("wa_sessions")
     .select("*", { count: "exact", head: true });
 
